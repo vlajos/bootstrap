@@ -1,13 +1,13 @@
 describe('dismissOnTimeout', function () {
 
-  var scope, $compile, $timeout;
+  var scope, $compile, $interval;
 
   beforeEach(module('ui.bootstrap.alert'));
   beforeEach(module('template/alert/alert.html'));
-  beforeEach(inject(function ($rootScope, _$compile_, _$timeout_) {
+  beforeEach(inject(function ($rootScope, _$compile_, _$interval_) {
     scope = $rootScope;
     $compile = _$compile_;
-    $timeout = _$timeout_;
+    $interval = _$interval_;
   }));
 
   it('should close automatically if auto-dismiss is defined on the element', function () {
@@ -15,7 +15,7 @@ describe('dismissOnTimeout', function () {
     $compile('<alert close="removeAlert()" dismiss-on-timeout="500">Default alert!</alert>')(scope);
     scope.$digest();
 
-    $timeout.flush();
+    $interval.flush(500);
     expect(scope.removeAlert).toHaveBeenCalled();
   });
 });

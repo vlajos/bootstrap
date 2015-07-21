@@ -19,13 +19,11 @@ angular.module('ui.bootstrap.alert', [])
   };
 })
 
-.directive('dismissOnTimeout', ['$timeout', function($timeout) {
+.directive('dismissOnTimeout', ['$interval', function($interval) {
   return {
     require: 'alert',
     link: function(scope, element, attrs, alertCtrl) {
-      $timeout(function(){
-        alertCtrl.close();
-      }, parseInt(attrs.dismissOnTimeout, 10));
+      $interval(alertCtrl.close, parseInt(attrs.dismissOnTimeout, 10), 1);
     }
   };
 }]);
